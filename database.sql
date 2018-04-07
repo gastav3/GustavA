@@ -70,6 +70,25 @@ LOCK TABLES `actors_of_movie` WRITE;
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD
+=======
+-- Temporary view structure for view `all_movies_that_are_lended_out_view`
+--
+
+DROP TABLE IF EXISTS `all_movies_that_are_lended_out_view`;
+/*!50001 DROP VIEW IF EXISTS `all_movies_that_are_lended_out_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `all_movies_that_are_lended_out_view` AS SELECT 
+ 1 AS `movieName`,
+ 1 AS `customerFirstName`,
+ 1 AS `customerLastName`,
+ 1 AS `employeeFirstName`,
+ 1 AS `employeeLastName`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+>>>>>>> feature/3_All_Lended_Movies
 -- Temporary view structure for view `all_movies_view`
 --
 
@@ -110,8 +129,8 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
   `idCustomer` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
+  `customerFirstName` varchar(45) DEFAULT NULL,
+  `customerLastName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idCustomer`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -187,8 +206,8 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee` (
   `idEmployee` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
+  `employeeFirstName` varchar(45) DEFAULT NULL,
+  `employeeLastName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idEmployee`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -274,6 +293,27 @@ UNLOCK TABLES;
 --
 
 --
+<<<<<<< HEAD
+=======
+-- Final view structure for view `all_movies_that_are_lended_out_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `all_movies_that_are_lended_out_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `all_movies_that_are_lended_out_view` AS select `m`.`movieName` AS `movieName`,`c`.`customerFirstName` AS `customerFirstName`,`c`.`customerLastName` AS `customerLastName`,`e`.`employeeFirstName` AS `employeeFirstName`,`e`.`employeeLastName` AS `employeeLastName` from (((`movie_rented_details` `md` left join `customer` `c` on((`c`.`idCustomer` = `md`.`Customer_idCustomer`))) left join `employee` `e` on((`e`.`idEmployee` = `md`.`employee_idEmployee`))) left join `movie` `m` on((`m`.`idMovie` = `md`.`movie_idMovie`))) where isnull(`md`.`movieReturnedDate`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+>>>>>>> feature/3_All_Lended_Movies
 -- Final view structure for view `all_movies_view`
 --
 
@@ -318,4 +358,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2018-04-07 23:46:56
+=======
+-- Dump completed on 2018-04-07 23:51:02
+>>>>>>> feature/3_All_Lended_Movies
