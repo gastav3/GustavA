@@ -70,8 +70,6 @@ LOCK TABLES `actors_of_movie` WRITE;
 UNLOCK TABLES;
 
 --
-<<<<<<< HEAD
-=======
 -- Temporary view structure for view `all_movies_that_are_lended_out_view`
 --
 
@@ -88,7 +86,20 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
->>>>>>> feature/3_All_Lended_Movies
+-- Temporary view structure for view `all_movies_that_should_have_been_returned_view`
+--
+
+DROP TABLE IF EXISTS `all_movies_that_should_have_been_returned_view`;
+/*!50001 DROP VIEW IF EXISTS `all_movies_that_should_have_been_returned_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `all_movies_that_should_have_been_returned_view` AS SELECT 
+ 1 AS `movieName`,
+ 1 AS `customerFirstName`,
+ 1 AS `customerLastName`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `all_movies_view`
 --
 
@@ -293,8 +304,6 @@ UNLOCK TABLES;
 --
 
 --
-<<<<<<< HEAD
-=======
 -- Final view structure for view `all_movies_that_are_lended_out_view`
 --
 
@@ -313,7 +322,24 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
->>>>>>> feature/3_All_Lended_Movies
+-- Final view structure for view `all_movies_that_should_have_been_returned_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `all_movies_that_should_have_been_returned_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `all_movies_that_should_have_been_returned_view` AS select `m`.`movieName` AS `movieName`,`c`.`customerFirstName` AS `customerFirstName`,`c`.`customerLastName` AS `customerLastName` from ((`movie_rented_details` `md` left join `customer` `c` on((`c`.`idCustomer` = `md`.`Customer_idCustomer`))) left join `movie` `m` on((`m`.`idMovie` = `md`.`movie_idMovie`))) where isnull(`md`.`movieReturnedDate`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `all_movies_view`
 --
 
@@ -358,8 +384,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2018-04-07 23:46:56
-=======
--- Dump completed on 2018-04-07 23:51:02
->>>>>>> feature/3_All_Lended_Movies
+-- Dump completed on 2018-04-07 23:55:33
