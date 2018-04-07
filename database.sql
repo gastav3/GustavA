@@ -132,6 +132,20 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `count_and_list_movies_rented_out_by_employee_view`
+--
+
+DROP TABLE IF EXISTS `count_and_list_movies_rented_out_by_employee_view`;
+/*!50001 DROP VIEW IF EXISTS `count_and_list_movies_rented_out_by_employee_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `count_and_list_movies_rented_out_by_employee_view` AS SELECT 
+ 1 AS `First_Name`,
+ 1 AS `Last_Name`,
+ 1 AS `Movies_Lended`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `customer`
 --
 
@@ -374,6 +388,24 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `count_and_list_movies_rented_out_by_employee_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `count_and_list_movies_rented_out_by_employee_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `count_and_list_movies_rented_out_by_employee_view` AS select `e`.`employeeFirstName` AS `First_Name`,`e`.`employeeLastName` AS `Last_Name`,count(0) AS `Movies_Lended` from (`employee` `e` left join `movie_rented_details` `md` on((`e`.`idEmployee` = `md`.`employee_idEmployee`))) where (`e`.`idEmployee` = `md`.`employee_idEmployee`) group by `e`.`employeeFirstName` order by `Movies_Lended` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -384,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-07 23:55:33
+-- Dump completed on 2018-04-07 23:58:24
