@@ -296,7 +296,7 @@ CREATE TABLE `movie_rented_details` (
   CONSTRAINT `fk_movie_rented_details_Customer1` FOREIGN KEY (`Customer_idCustomer`) REFERENCES `customer` (`idCustomer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movie_rented_details_employee1` FOREIGN KEY (`employee_idEmployee`) REFERENCES `employee` (`idEmployee`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movie_rented_details_movie1` FOREIGN KEY (`movie_idMovie`) REFERENCES `movie` (`idMovie`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,7 +305,7 @@ CREATE TABLE `movie_rented_details` (
 
 LOCK TABLES `movie_rented_details` WRITE;
 /*!40000 ALTER TABLE `movie_rented_details` DISABLE KEYS */;
-INSERT INTO `movie_rented_details` VALUES (1,'2018-04-04','2018-04-06','2018-04-06',1,1,2),(2,'2018-03-02',NULL,'2018-03-06',4,1,2),(3,'2018-04-01','2018-04-05','2018-04-05',2,2,2),(4,'2018-04-02','2018-04-04','2018-04-06',7,2,2),(5,'2018-04-03',NULL,'2018-04-07',5,4,3),(6,'2018-04-02','2018-04-04','2018-04-06',10,3,3),(7,'2015-04-01',NULL,'2015-04-05',2,1,3),(8,'2018-04-02','2018-04-06','2018-04-06',2,5,1),(9,'2018-03-31','2018-04-03','2018-04-03',1,2,1),(10,'2018-04-06','2018-04-06','2018-04-10',9,4,1);
+INSERT INTO `movie_rented_details` VALUES (1,'2018-04-04','2018-04-06','2018-04-06',1,1,2),(2,'2018-03-02',NULL,'2018-03-06',4,1,2),(3,'2018-04-01','2018-04-05','2018-04-05',2,2,2),(4,'2018-04-02','2018-04-04','2018-04-06',7,2,2),(5,'2018-04-03',NULL,'2018-04-07',5,4,3),(6,'2018-04-02','2018-04-04','2018-04-06',10,3,3),(7,'2015-04-01',NULL,'2015-04-05',2,1,3),(8,'2018-04-02','2018-04-06','2018-04-06',2,5,1),(9,'2018-03-31','2018-04-03','2018-04-03',1,2,1),(10,'2018-04-06','2018-04-06','2018-04-10',9,4,1),(11,'2018-04-04',NULL,'2018-04-08',5,2,1);
 /*!40000 ALTER TABLE `movie_rented_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,6 +316,25 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'gustava'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `borrow_movie` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `borrow_movie`(IN borrowed_Date DATE, IN customer_Id INT(11), IN employee_Id INT(11), IN movieid INT(11))
+BEGIN
+INSERT INTO movie_rented_details (movie_rented_details.movie_idMovie, movie_rented_details.Customer_idCustomer, movie_rented_details.employee_idEmployee, movie_rented_details.rentedOutDate, movie_rented_details.expectedReturnDate) VALUES (movieid, customer_Id, employee_Id, borrowed_Date, DATE_ADD(borrowed_Date, INTERVAL 4 DAY));
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `all_movies_that_are_lended_out_view`
@@ -416,4 +435,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-07 23:58:24
+-- Dump completed on 2018-04-08 16:24:53

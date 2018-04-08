@@ -12,3 +12,7 @@ SELECT * FROM all_movies_that_should_have_been_returned_view;
 
 -- Uppgift 5
 SELECT * FROM count_and_list_movies_rented_out_by_employee_view;
+
+-- Uppgift 7
+CALL borrow_movie('2018-04-04', 2, 1, 5);
+
