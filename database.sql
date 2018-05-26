@@ -51,12 +51,12 @@ DROP TABLE IF EXISTS `actors_of_movie`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `actors_of_movie` (
   `actor_idActor` int(11) NOT NULL,
-  `movie_idMovie` int(11) NOT NULL,
-  PRIMARY KEY (`actor_idActor`,`movie_idMovie`),
-  KEY `fk_actor_has_movie_movie1_idx` (`movie_idMovie`),
+  `movie_movieTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`actor_idActor`,`movie_movieTypeId`),
+  KEY `fk_actor_has_movie_movie1_idx` (`movie_movieTypeId`),
   KEY `fk_actor_has_movie_actor1_idx` (`actor_idActor`),
   CONSTRAINT `fk_actor_has_movie_actor1` FOREIGN KEY (`actor_idActor`) REFERENCES `actor` (`idActor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_actor_has_movie_movie1` FOREIGN KEY (`movie_idMovie`) REFERENCES `movie` (`idMovie`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_actor_has_movie_movie1` FOREIGN KEY (`movie_movieTypeId`) REFERENCES `movie` (`idMovie`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,6 +66,7 @@ CREATE TABLE `actors_of_movie` (
 
 LOCK TABLES `actors_of_movie` WRITE;
 /*!40000 ALTER TABLE `actors_of_movie` DISABLE KEYS */;
+INSERT INTO `actors_of_movie` VALUES (1,1),(1,2),(2,2),(1,3),(3,3),(4,4),(4,5),(1,6),(5,7),(6,8),(7,9),(8,9),(1,10),(9,10);
 /*!40000 ALTER TABLE `actors_of_movie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,11 +109,13 @@ DROP TABLE IF EXISTS `all_movies_view`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE VIEW `all_movies_view` AS SELECT 
- 1 AS `idMovie`,
- 1 AS `movieType`,
  1 AS `movieName`,
+ 1 AS `genre`,
  1 AS `releaseYear`,
- 1 AS `genre`*/;
+ 1 AS `directorFirstName`,
+ 1 AS `directorLastName`,
+ 1 AS `firstName`,
+ 1 AS `lastName`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -179,8 +182,8 @@ DROP TABLE IF EXISTS `director`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `director` (
   `idDirector` int(11) NOT NULL AUTO_INCREMENT,
-  `customerFirstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
+  `directorFirstName` varchar(45) DEFAULT NULL,
+  `directorLastName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idDirector`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -204,12 +207,12 @@ DROP TABLE IF EXISTS `directors_of_movie`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `directors_of_movie` (
   `director_idDirector` int(11) NOT NULL,
-  `movie_idMovie` int(11) NOT NULL,
-  PRIMARY KEY (`director_idDirector`,`movie_idMovie`),
-  KEY `fk_director_has_movie_movie1_idx` (`movie_idMovie`),
+  `movie_movieTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`director_idDirector`,`movie_movieTypeId`),
+  KEY `fk_director_has_movie_movie1_idx` (`movie_movieTypeId`),
   KEY `fk_director_has_movie_director1_idx` (`director_idDirector`),
   CONSTRAINT `fk_director_has_movie_director1` FOREIGN KEY (`director_idDirector`) REFERENCES `director` (`idDirector`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_director_has_movie_movie1` FOREIGN KEY (`movie_idMovie`) REFERENCES `movie` (`idMovie`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_director_has_movie_movie1` FOREIGN KEY (`movie_movieTypeId`) REFERENCES `movie` (`idMovie`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -219,6 +222,7 @@ CREATE TABLE `directors_of_movie` (
 
 LOCK TABLES `directors_of_movie` WRITE;
 /*!40000 ALTER TABLE `directors_of_movie` DISABLE KEYS */;
+INSERT INTO `directors_of_movie` VALUES (1,1),(2,1),(1,2),(4,3),(1,4),(1,5),(3,5),(5,6),(1,7),(2,7),(3,8),(3,9),(4,10),(5,10);
 /*!40000 ALTER TABLE `directors_of_movie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +309,7 @@ CREATE TABLE `movie_rented_details` (
 
 LOCK TABLES `movie_rented_details` WRITE;
 /*!40000 ALTER TABLE `movie_rented_details` DISABLE KEYS */;
-INSERT INTO `movie_rented_details` VALUES (1,'2018-04-04','2018-04-06','2018-04-06',1,1,2),(2,'2018-03-02',NULL,'2018-03-06',4,1,2),(3,'2018-04-01','2018-04-05','2018-04-05',2,2,2),(4,'2018-04-02','2018-04-04','2018-04-06',7,2,2),(5,'2018-04-03',NULL,'2018-04-07',5,4,3),(6,'2018-04-02','2018-04-04','2018-04-06',10,3,3),(7,'2015-04-01',NULL,'2015-04-05',2,1,3),(8,'2018-04-02','2018-04-06','2018-04-06',2,5,1),(9,'2018-03-31','2018-04-03','2018-04-03',1,2,1),(10,'2018-04-06','2018-04-06','2018-04-10',9,4,1),(11,'2018-04-04',NULL,'2018-04-08',5,2,1);
+INSERT INTO `movie_rented_details` VALUES (1,'2018-04-04','2018-04-06','2018-04-06',1,1,2),(2,'2018-03-02',NULL,'2018-03-06',4,1,2),(3,'2018-04-01','2018-04-05','2018-04-05',2,2,2),(4,'2018-04-02','2018-04-04','2018-04-06',7,2,2),(5,'2018-04-03',NULL,'2018-09-07',5,4,3),(6,'2018-04-02','2018-04-04','2018-04-06',10,3,3),(7,'2015-04-01',NULL,'2015-04-05',2,1,3),(8,'2018-04-02','2018-04-06','2018-04-06',2,5,1),(9,'2018-03-31','2018-04-03','2018-04-03',1,2,1),(10,'2018-04-06','2018-04-06','2018-04-10',9,4,1),(11,'2018-04-04',NULL,'2018-04-08',5,2,1);
 /*!40000 ALTER TABLE `movie_rented_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +371,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `all_movies_that_should_have_been_returned_view` AS select `m`.`movieName` AS `movieName`,`c`.`customerFirstName` AS `customerFirstName`,`c`.`customerLastName` AS `customerLastName` from ((`movie_rented_details` `md` left join `customer` `c` on((`c`.`idCustomer` = `md`.`Customer_idCustomer`))) left join `movie` `m` on((`m`.`idMovie` = `md`.`movie_idMovie`))) where isnull(`md`.`movieReturnedDate`) */;
+/*!50001 VIEW `all_movies_that_should_have_been_returned_view` AS select `m`.`movieName` AS `movieName`,`c`.`customerFirstName` AS `customerFirstName`,`c`.`customerLastName` AS `customerLastName` from ((`movie_rented_details` `md` left join `customer` `c` on((`c`.`idCustomer` = `md`.`Customer_idCustomer`))) left join `movie` `m` on((`m`.`idMovie` = `md`.`movie_idMovie`))) where (isnull(`md`.`movieReturnedDate`) and (`md`.`expectedReturnDate` < curdate())) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -385,7 +389,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `all_movies_view` AS select `movie`.`idMovie` AS `idMovie`,`movie`.`movieType` AS `movieType`,`movie`.`movieName` AS `movieName`,`movie`.`releaseYear` AS `releaseYear`,`movie`.`genre` AS `genre` from `movie` */;
+/*!50001 VIEW `all_movies_view` AS select `m`.`movieName` AS `movieName`,`m`.`genre` AS `genre`,`m`.`releaseYear` AS `releaseYear`,`d`.`directorFirstName` AS `directorFirstName`,`d`.`directorLastName` AS `directorLastName`,`a`.`firstName` AS `firstName`,`a`.`lastName` AS `lastName` from ((((`movie` `m` left join `directors_of_movie` `dom` on((`dom`.`movie_movieTypeId` = `m`.`movieType`))) left join `director` `d` on((`d`.`idDirector` = `dom`.`director_idDirector`))) left join `actors_of_movie` `aom` on((`aom`.`movie_movieTypeId` = `m`.`movieType`))) left join `actor` `a` on((`a`.`idActor` = `aom`.`actor_idActor`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -421,7 +425,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `count_and_list_movies_rented_out_by_employee_view` AS select `e`.`employeeFirstName` AS `First_Name`,`e`.`employeeLastName` AS `Last_Name`,count(0) AS `Movies_Lended` from (`employee` `e` left join `movie_rented_details` `md` on((`e`.`idEmployee` = `md`.`employee_idEmployee`))) where (`e`.`idEmployee` = `md`.`employee_idEmployee`) group by `e`.`employeeFirstName` order by `Movies_Lended` desc */;
+/*!50001 VIEW `count_and_list_movies_rented_out_by_employee_view` AS select `e`.`employeeFirstName` AS `First_Name`,`e`.`employeeLastName` AS `Last_Name`,count(0) AS `Movies_Lended` from (`employee` `e` left join `movie_rented_details` `md` on((`e`.`idEmployee` = `md`.`employee_idEmployee`))) where (`e`.`idEmployee` = `md`.`employee_idEmployee`) group by `e`.`idEmployee` order by `Movies_Lended` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -435,4 +439,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-08 16:24:53
+-- Dump completed on 2018-05-26 21:18:09
